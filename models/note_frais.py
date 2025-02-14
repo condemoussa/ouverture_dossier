@@ -6,6 +6,7 @@ from odoo import api, fields, models
 #
 class NoteFrais(models.Model):
     _inherit = "hr.expense.sheet"
+    _description = "Gestion des depenses pour l'entreprise"
 
 
 

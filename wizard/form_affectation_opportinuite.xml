@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="wizard_crm_lead_custom">
+            <field name="name">Affectation Opportunité</field>
+            <field name="model">crm.assign.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Affectation Opportunité">
+                    <sheet>
+                            <group>
+                                    <field name="crm_id" string="Opportunité"/>
+                                     <field name="user_ids" string="Utilisateurs" widget="many2many_tags"/>
+                            </group>
+                    </sheet>
+                    <shooter>
+                          <button name="affectation_opportunite" type="object" string="Affecter" />
+                    </shooter>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_affectation_oppportunite">
+            <field name="name">Affectation Opportunité</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.assign.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="wizard_crm_lead_custom"/>
+        </record>
+
+    </data>
+</odoo>

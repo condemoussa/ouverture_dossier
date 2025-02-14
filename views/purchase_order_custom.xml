@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+    <field name="name">purchase.order.form.inherit</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form"/>
+    <field name="arch" type="xml">
+        <!-- Ajout du statusbar avant le contenu de la fiche -->
+        <xpath expr="//sheet" position="before">
+
+             <button name="plan_paiement_valider" string="Valider" type="object"
+                      attrs="{'invisible': [('etap_state', '!=', 'dg_daf')]}"
+                      groups="ouverture_dossier.direction_general_id"
+             />
+
+             <button name="plan_paiement_refuse" string="Refuser" type="object"
+                      attrs="{'invisible': [('etap_state', '!=', 'dg_daf')]}"
+                      groups="ouverture_dossier.direction_general_id"
+             />
+
+              <button name="trans_dg_daf" string="Transmission au DG/DAF" type="object"
+                      attrs="{'invisible': [('etap_state', '!=', 'ser_tresorie')]}"
+                      groups="ouverture_dossier.service_tresorerie_id"
+             />
+
+             <button name="trans_tresorerie" string="Transmission au tresorerie" type="object"
+                      attrs="{'invisible': [('etap_state', '!=', 'lance_commande')]}"
+                      groups="ouverture_dossier.service_achat_id"
+             />
+
+             <button name="lance_commande" string="Lancé commande" type="object"
+                      attrs="{'invisible': [('etap_state', '!=', 'service_achat')]}"
+                        groups="ouverture_dossier.service_achat_id"
+             />
+             <button name="service_achat" string="Transmission au service achat" type="object"
+                      attrs="{'invisible': [('etap_state', '!=', 'validate')]}"
+                    groups="ouverture_dossier.direction_general_id"
+             />
+
+            <button name="action_annuler" string="Annuler" type="object"
+                      attrs="{'invisible': [('etap_state', '!=', 'envoye_controleur'),('etap_state', '!=', 'envoye_dg')]}"
+                    groups="ouverture_dossier.direction_general_id,ouverture_dossier.controleur_gestion_id"
+             />
+
+            <button name="validate_dg" string="Validation  DG" type="object"
+                      attrs="{'invisible': [('etap_state', '!=', 'envoye_dg')]}"
+                       groups="ouverture_dossier.direction_general_id"
+             />
+
+             <button name="verification_offre" string="Verification controleur" type="object"
+                        attrs="{'invisible': [('etap_state', '!=', 'envoye_controleur')]}"
+                         groups="ouverture_dossier.controleur_gestion_id"
+             />
+
+            <button name="send_document_controleur" string="Soumettre au controleur" type="object"
+                       attrs="{'invisible': [('etap_state', '!=', 'facture_profomat')]}"
+                     groups="ouverture_dossier.service_commercial_id"
+            />
+
+
+              <button name="facture_proformat" string="Facture proformat" type="object"
+                         attrs="{'invisible': [('etap_state', '!=', 'envoye_fournisseu')]}"
+                        groups="ouverture_dossier.service_commercial_id"
+              />
+
+
+              <button name="action_rfq_send" string="Envoyer au fournisseur" type="object"
+                        attrs="{'invisible': [('etap_state', '!=', 'draft')]}"
+                        groups="ouverture_dossier.service_commercial_id"
+              />
+
+            <field name="etap_state" widget="statusbar" class="o_field_statusbar"/>
+        </xpath>
+
+        <!-- Ajout des nouvelles pages dans le notebook -->
+        <xpath expr="//sheet/notebook" position="inside">
+            <page string="Offre physique">
+                <group>
+                    <field name="offre_physique"/>
+                </group>
+            </page>
+            <page string="Rapport de sélection">
+                <group>
+                    <field name="rapport_select"/>
+                </group>
+            </page>
+             <page string="Plan paiement" groups="ouverture_dossier.service_tresorerie_id,ouverture_dossier.direction_general_id">
+                <group>
+                    <field name="plan_paiement"/>
+                </group>
+            </page>
+        </xpath>
+
+        <!-- Ajout du champ après fiscal_position_id -->
+        <xpath expr="//field[@name='fiscal_position_id']" position="after">
+            <field name="etap_commande"/>
+        </xpath>
+    </field>
+</record>
+
+
+
+
+
+
+
+</odoo>

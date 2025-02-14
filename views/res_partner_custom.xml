@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<!--     ajoute de nouveau au formulaire res_partner-->
+            <record id="view_res_partner_search_inherit" model="ir.ui.view">
+                <field name="name">Type fournisseur</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="base.view_res_partner_filter" />
+                <field name="arch" type="xml">
+                    <group position="inside">
+                        <filter string="Type de fournisseur" name="type_fournisseur" context="{'group_by': 'type_fournisseur'}"/>
+                         <filter string="Secteur d'activité" name="sect_activity" context="{'group_by': 'sect_activity'}"/>
+                    </group>
+                </field>
+            </record>
+
+              <record id="view_res_partner_form_inherit_document" model="ir.ui.view">
+                <field name="name">Custom form res.partner</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="base.view_partner_form"/>
+                <field name="arch" type="xml">
+                    <!-- Ajout du champ "type_fournisseur" après le champ "vat" -->
+                    <xpath expr="//field[@name='vat']" position="after">
+                        <field name="type_fournisseur"/>
+                        <field name="sect_activity"/>
+                    </xpath>
+
+                    <!-- Correction pour ajouter un header au bon emplacement -->
+                    <xpath expr="//sheet" position="before">
+                         <button name="valide" type="object" string="Valider"  states="submit" groups="ouverture_dossier.direction_commrcial_id,ouverture_dossier.direction_general_id,ouverture_dossier.direction_commrcial_id" />
+                         <button name="annule" type="object" string="Annuler" states="submit,valider" groups="ouverture_dossier.direction_commrcial_id,ouverture_dossier.direction_general_id,ouverture_dossier.direction_commrcial_id" />
+                         <button name="remettre_draft" string="Soumettre à nouveau" type="object" states="cancel" groups="ouverture_dossier.service_commercial_id" />
+                         <button name="action_submit" string="Soumettre " type="object" states="draft" groups="ouverture_dossier.service_commercial_id" />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                           <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                           <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                           <button name="valide" type="object"  />
+                         <button name="valide" type="object"   />
+                         <button name="valide" type="object"  />
+                         <button name="valide" type="object"  />
+
+
+                        <field name="state" widget="statusbar" class="o_field_statusbar left" />
+                    </xpath>
+
+                    <!-- Ajout de l'onglet "Documents fournisseurs" -->
+                    <xpath expr="//sheet/notebook" position="inside">
+                        <page string="Documents fournisseurs">
+                            <group>
+                                <group>
+                                    <field name="doc_rib"/>
+                                    <field name="doc_def"/>
+                                    <field name="doc_registre"/>
+                                </group>
+                                <group>
+                                    <field name="doc_arf"/>
+                                    <field name="doc_attes"/>
+                                    <field name="doc_attes_regime"/>
+                                </group>
+                            </group>
+                        </page>
+                    </xpath>
+                </field>
+        </record>
+
+          <record id="view_res_users_tree_inherit_document" model="ir.ui.view">
+                <field name="name">Custom form res.users</field>
+                <field name="model">res.users</field>
+                <field name="inherit_id" ref="base.view_users_tree"/>
+                <field name="arch" type="xml">
+                    <!-- Ajout du champ "type_fournisseur" après le champ "vat" -->
+                    <xpath expr="//field[@name='login']" position="after">
+                          <field name="user_mail"/>
+                          <field name="type_groups"/>
+                    </xpath>
+
+                </field>
+        </record>
+
+
+
+</odoo>

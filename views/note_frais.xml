@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--    ajoute de nouveau champs au formulaire sale_order-->
+    <record id="view_hr_expense_sheet_form_inherit_cogitech" model="ir.ui.view">
+        <field name="name">hr.expense.sheet</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                  <button name="action_submit"
+                            string="Soumettre"
+                            type="object"
+                        attrs="{'invisible': [('state_up', '!=', 'draft')]}"
+
+                     />
+
+                <button name="action_verification"
+                            string="Verification"
+                            type="object"
+                            attrs="{'invisible': [('state_up', '!=', 'submit')]}"
+                            groups="ouverture_dossier.service_gestionnaire_caisse_id"
+                     />
+
+                  <button name="action_directeur_general"
+                            string="Directeur géneral"
+                            type="object"
+                            attrs="{'invisible': [('state_up', '!=', 'submit')]}"
+                            groups="ouverture_dossier.direction_general_id"
+                     />
+
+                 <button name="action_valider"
+                            string="Accorder"
+                            type="object"
+                            attrs="{'invisible': [('state_up', '!=', 'transfert')]}"
+                            groups="ouverture_dossier.service_directeur_financei_id"
+
+                     />
+                 <button name="action_annuler"
+                            string="Annuler"
+                            type="object"
+                  attrs="{'invisible': [('state_up', '!=', 'transfert')]}"
+                     />
+                 <button name="transfer_justifs"
+                            string="Transmission des justificatifs"
+                            type="object"
+                        attrs="{'invisible': [('state_up', '!=', 'accord')]}"
+                     />
+                 <button name="validation_justifs"
+                            string="Validation des justificatifs"
+                            type="object"
+                            attrs="{'invisible': ['|', ('state_up', '!=', 'justif'), ('state_up', '!=', 'justif')]}"
+                            groups="ouverture_dossier.service_gestionnaire_caisse_id"
+
+                     />
+                 <button name="rejet_justifs"
+                            string="rejetter des justificatifs"
+                            type="object"
+                            attrs="{'invisible': ['|', ('state_up', '!=', 'justif'), ('state_up', '!=', 'justif')]}"
+                            groups="ouverture_dossier.service_gestionnaire_caisse_id"
+                     />
+                 <button name="rejet_justifs"
+                            string=""
+                            type="object"
+
+                     />
+                 <button name="rejet_justifs"
+                            string=""
+                            type="object"
+
+                     />
+                 <button name="rejet_justifs"
+                            string=""
+                            type="object"
+
+                     />
+                 <button name="rejet_justifs"
+                            string=""
+                            type="object"
+
+                     />
+
+                 <field name="state_up" widget="statusbar" class="o_field_statusbar "/>
+          </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                  <field name="piece_caisse"/>
+                   <field name="visa_demandeur"/>
+                   <field name="visa_direct_fin"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--    ajoute de nouveau champs au formulaire sale_order-->
+    <record id="view_sale_order_form_inherit_cogitech" model="ir.ui.view">
+        <field name="name"> sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+
+                     <button name="%(action_atm_ouverture_dossier)d"
+                                string="Ouvrir Dossier"
+                                type="action"
+                                class="oe_highlight"
+                                  attrs="{'invisible': ['|', ('expres_command', '!=', 'express5'), ('type_commd', '=', 'comand1')]}"/>
+
+                      <button name="%(action_atm_ouverture_contrat)d"
+                                string="Ouvrir Dossier"
+                                type="action"
+                                class="oe_highlight"
+                                  attrs="{'invisible': ['|', ('expres_command', '!=', 'express5'), ('type_commd', '!=', 'comand1')]}"
+                      />
+
+
+                      <button name="create_ouverture_dossier"
+                            string="Création du dossier"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': ['|', ('expres_command', '=', False), ('expres_command', '=', 'express5')]}"
+                     />
+                        <button name="bon_accord" string="bon pour accord"
+                                    type="object"
+                            attrs="{'invisible': [('state', '=', 'sale')]}"
+                          />
+
+                         <button name="bon_commande" string="bon de commande"
+                                    type="object"
+                                 attrs="{'invisible': [('state', '=', 'sale')]}"
+                          />
+
+                         <button name="lettre_attribution" string="lettre d’attribution"
+                                    type="object"
+                                 attrs="{'invisible': [('state', '=', 'sale')]}"
+                          />
+
+                          <button name="contra_travail" string="contrat de maintenance"
+                                    type="object"
+                                  attrs="{'invisible': [('state', '=', 'sale')]}"
+                          />
+
+                          <button name="contra_travail"
+                                    type="object"
+
+                          />
+                           <button name="contra_travail"
+                                    type="object"
+
+                          />
+                           <button name="contra_travail"
+                                    type="object"
+
+                          />
+                           <button name="contra_travail"
+                                    type="object"
+
+                          />
+
+                 <field name="expres_command" widget="statusbar" class="o_field_statusbar " string="Type d'offre"/>
+          </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                  <field name="type_commd"/>
+            </xpath>
+            <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                  <field name="etap_commande"/>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Offre physique">
+                    <group>
+                        <field name="offre_physique"/>
+                    </group>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+
+<!--    ajoute de nouveau champs au formulaire stock_picking -->
+    <record id="view_stock_picking_form_inherit" model="ir.ui.view">
+    <field name="name">stock.picking.form.inherit.rapport</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//sheet/notebook" position="inside">
+            <page string="Rapports">
+                <group>
+                    <group>
+                         <field name="rapport_control"/>
+                         <field name="rapport2"/>
+                    </group>
+                    <group>
+                         <field name="rapport3"/>
+                         <field name="rapport4"/>
+                    </group>
+                </group>
+            </page>
+        </xpath>
+    </field>
+</record>
+
+<!--    ajoute de nouveau champs au formulaire res_users-->
+
+  <record id="view_res_user_form_inherit" model="ir.ui.view">
+    <field name="name">res.users.form.inherit.type_groups</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='login']" position="after">
+            <h6>Email</h6>
+            <field name="user_mail"/>
+            <h6>Type groupe </h6>
+            <field name="type_groups" string="Services"/>
+        </xpath>
+    </field>
+</record>
+
+
+
+</odoo>

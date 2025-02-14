@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+        <!-- Utilisez "portrait" ou "landscape" selon votre choix -->
+        <report
+            id="rapport_fact_proforma"
+            model="sale.order"
+            string="Facture proforma"
+            name="rapport_bc_victoire.rapport_facture_proforma_victoire"
+            file="rapport_bc_victoire.rapport_facture_proforma_victoire"
+            report_type="qweb-pdf"
+        />
+
+        <template id="rapport_facture_proforma_victoire">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                         <t t-foreach="docs" t-as="o">
+                                 <div class="row" style="font-weight:bold;">
+                                        <div class="col-8">
+                                          N°REF :<span t-field="o.n_ref"/>
+                                        </div>
+                                       <div class="col-4">
+                                           Abidjan le <span t-field="o.create_date"/>
+                                       </div>
+                                 </div>
+                                 <div>
+                                     OBJET :  <span t-field="o.objet"/>
+                                 </div>
+                                  <div class="row">
+                                        <div class="col-4">
+
+                                        </div>
+                                       <div class="col-4" >
+                                             <p>CLIENT : <span t-field="o.partner_id.name"/></p>
+                                             <p> TELEPHONE : <span t-field="o.partner_id.phone"/></p>
+                                             <p>EMAIL : <span t-field="o.partner_id.email"/></p>
+                                       </div>
+                                       <div class="col-4">
+
+                                       </div>
+                                 </div>
+                             <br/>
+                                 <table>
+                                      <tr style="background:gray;font-size:14px;font-weight:bold;color:white;">
+                                          <th style="border-left:1px solid black;border-top:1px solid lack;border-bottom:1px solid black;text-align:left;width:400px;">DESCRIPTIONS</th>
+                                          <th style="border-top:1px solid lack;border-bottom:1px solid black;text-align:center;width:300px;">PU / M²</th>
+                                          <th style="border-top:1px solid lack;border-bottom:1px solid black;text-align:center;width:100px;">QTE (m²)</th>
+                                          <th style="border-top:1px solid lack;border-bottom:1px solid black;text-align:center;width:110px;">PRIX TOTAL</th>
+                                      </tr>
+                                       <t t-foreach="o.order_line" t-as="line">
+
+                                                      <tr style="font-size:14px;">
+                                                          <td style="border: 1px solid black;width: 200px; text-align: center;" >
+                                                              <span t-esc="line.name"/>
+                                                          </td>
+                                                            <td style="border: 1px solid black; width: 80px; text-align: center;">
+                                                              <span t-esc="line.price_unit"/>
+                                                          </td>
+                                                          <td style="border: 1px solid black; width: 80px; text-align: center;">
+                                                              <span t-esc="line.product_uom_qty"/>
+                                                          </td>
+                                                            <td style="border: 1px solid black; width: 80px; text-align: center;">
+                                                              <span t-esc="line.price_total"/>
+                                                          </td>
+                                                      </tr>
+
+                                       </t>
+                                     <tr>
+                                         <td style="border: 1px solid black;">Arrêter le présent devis à la somme HT de <span t-esc="o.montant_en_lettre" style="margin-right:2px;"/>CFA</td> <td colspan="2" style="border: 1px solid black;font-weight:bold;font-size:14px;">MONTANT HT</td><td style="border: 1px solid black;font-weight:bold;text-align:right;font-size:14px;"> <span t-esc="o.amount_untaxed"/></td>
+                                     </tr>
+
+
+                                  </table>
+
+
+                         </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

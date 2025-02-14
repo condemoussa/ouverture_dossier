@@ -1,0 +1,19 @@
+<odoo>
+    <menuitem id="menu_atm_root" name="OUVERTURES DOSSIERS"
+                  web_icon="ouverture_dossier,static/description/logo_ouverture_dossier.png"
+    />
+
+    <menuitem id="menu_atm_ouverture_dossier"
+              name="Commandes de matériel-équipement-travaux et services"
+              parent="menu_atm_root"
+              action="action_atm_ouverture_dossier"
+              sequence="1"
+    />
+
+     <menuitem id="menu_atm_ouverture_contrat"
+              name="Contrats de maintenances"
+              parent="menu_atm_root"
+              action="action_atm_ouverture_contrat"
+               sequence="2"
+     />
+</odoo>

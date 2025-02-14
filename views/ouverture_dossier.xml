@@ -1,0 +1,114 @@
+<odoo>
+    <record id="view_atm_ouverture_dossier_form" model="ir.ui.view">
+        <field name="name">OUVERTURE DOSSIER</field>
+        <field name="model">atm.ouverture.dossier</field>
+        <field name="arch" type="xml">
+            <form string="Ouverture de dossier">
+                  <header>
+                       <button name="%(project.open_view_project_all)d"
+                            string="Ouvrir le projet"
+                            type="action"
+                            class="oe_highlight"
+                            states="projet"
+                     />
+                        <button name="action_submit" string="Soumettre" type="object"
+                                  states="draft"
+                                  groups="ouverture_dossier.service_commercial_id"
+                          />
+                          <button name="analyse" string="Verification" type="object"
+                                  states="ouvert_dossier"
+                                  groups="ouverture_dossier.controleur_gestion_id"
+                          />
+                          <button name="verify" string="Validation"
+                                  type="object"  states="analyse"
+                                   groups="ouverture_dossier.direction_general_id"
+                          />
+<!--                            <button name="generate_number" string="Génération de numéro OT"-->
+<!--                                    type="object"  states="validate"-->
+<!--                                    groups="ouverture_dossier.direction_general_id"-->
+
+<!--                          />-->
+                            <button name="annule" string="Annuler"
+                                    type="object"  states="validate,verify,ouvert_dossier,analyse"
+                                    groups="ouverture_dossier.direction_general_id"
+
+                          />
+                           <button name="create_projet"
+                                   string="Planifier projet" type="object" states="validate"
+                                    groups="ouverture_dossier.service_commercial_id,ouverture_dossier.direction_technique_id,ouverture_dossier.controleur_gestion_id"
+                           />
+                        <field name="state" widget="statusbar" class="o_field_statusbar" />
+                  </header>
+                <sheet>
+                    <group>
+                        <group>
+                             <field name="name" string="N°OT"/>
+                             <field name="dat_ouverture"/>
+                            <field name="sale_order_id"/>
+                            <field name="expre_commande"/>
+                        </group>
+                         <group>
+                              <field name="fiche_affaire"/>
+                            <field name="purchase_order_ids" widget="many2many_tags"/>
+                              <field name="user_id" string="Utilisateur"/>
+                        </group>
+                    </group>
+                     <notebook>
+                        <page string="Rapport">
+                            <group>
+                                <field name="rapport_selec_f"/>
+                            </group>
+                        </page>
+                </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_atm_ouverture_dossier_tree" model="ir.ui.view">
+        <field name="name">OUVERTURE DOSSIER</field>
+        <field name="model">atm.ouverture.dossier</field>
+        <field name="arch" type="xml">
+            <tree string="Ouverture de dossier">
+                   <field name="name"/>
+                   <field name="dat_ouverture"/>
+                   <field name="sale_order_id"/>
+                   <field name="purchase_order_ids" widget="many2many_tags" />
+                  <field name="user_id" string="Utilisateur"/>
+            </tree>
+        </field>
+    </record>
+     <record id="view_atm_ouverture_dossier_kanban" model="ir.ui.view">
+        <field name="name">OUVERTURE DOSSIER</field>
+        <field name="model">atm.ouverture.dossier</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="sale_order_id"/>
+                <field name="dat_ouverture"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div>
+                                <strong><field name="name"/></strong>
+                            </div>
+                            <div>
+                                <span>Commande : </span><field name="sale_order_id"/>
+                            </div>
+                            <div>
+                                <span>Date d'ouverture : </span><field name="dat_ouverture"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="action_atm_ouverture_dossier" model="ir.actions.act_window">
+        <field name="name">OUVERTURE DOSSIER</field>
+        <field name="res_model">atm.ouverture.dossier</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="target">current</field>
+
+    </record>
+</odoo>

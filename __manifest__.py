@@ -1,0 +1,27 @@
+{
+    'name': 'Ouverture dossier',
+    'version': '1.0',
+    'author': 'CONDE MOUSSA',
+    'category': 'article',
+    'depends': ['base',"purchase","sale","account"],
+    'data': [
+            "security/ir.model.access.csv",
+            "security/gestion_groupe_personnels.xml",
+            # "rapport/rapport_bon_de_commande.xml",
+             #"rapport/fact_proforma_victoire.xml",
+             "automatisation/mail_relance.xml",
+             "wizard/form_affectation_opportinuite.xml",
+             "views/crm_lead_custom.xml",
+             "views/stock_picking_custom.xml",
+             "views/purchase_order_custom.xml",
+            "views/ouverture_dossier_contrat.xml",
+             "views/ouverture_dossier.xml",
+             "views/sale_order_custom.xml",
+             "views/res_partner_custom.xml",
+             "views/note_frais.xml",
+             "views/custom_product_template.xml",
+             "views/menu_general.xml"
+    ],
+    'installable': True,
+    'application': True,
+}

@@ -1,0 +1,215 @@
+<odoo>
+    <data>
+        <!-- Utilisez "portrait" ou "landscape" selon votre choix -->
+        <report
+            id="rapport_victoire_bc"
+            model="sale.order"
+            string="Bon de commande"
+            name="rapport_bc_victoire.rapport_bon_de_commande_victoire"
+            file="rapport_bc_victoire.rapport_bon_de_commande_victoire"
+            report_type="qweb-pdf"
+        />
+
+        <template id="rapport_bon_de_commande_victoire">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="border:8px solid #B0CACA;height:865px;">
+                        <div style="border:1px solid black;height:851px;padding:10px;">
+                             <t t-foreach="docs" t-as="o">
+                                  <div class="row">
+                                        <div class="col-6">
+
+                                        </div>
+                                       <div class="col-6">
+                                             <div class="row" style="margin-top:4px;border:2px solid red;padding:4px;">
+                                                  <div class="col-6" style="font-weight:bold;">
+                                                     BON DE COMMANDE
+                                                   </div>
+                                                    <div class="col-6">
+                                                     N° <span t-field="o.name"/>
+                                                   </div>
+                                              </div>
+                                             <br/>
+                                               <div class="row" style="margin-top:10px;">
+                                                  <div class="col-4" style="font-size:12px;">
+                                                     Référence fournisseur
+                                                       A l'attention
+                                                   </div>
+                                                    <div class="col-8" style="font-weight:bold;">
+                                                     N° <span t-field="o.name"/>
+                                                   </div>
+                                              </div>
+
+                                        </div>
+                                 </div>
+                                 <br/><br/>
+                                   <div class="row">
+                                        <div class="col-6" style="font-size:12px;">
+                                            <p style="margin:0px;padding:0px;">Adresse : Angre 8eme tranche carrefour Fred et Poppee</p>
+                                            <p style="margin:0px;padding:0px;">503 BPR 18 AbidjanLWP 503</p>
+                                            <p style="margin:0px;padding:0px;">Téléphone : 22 01 63 22/ 78 27 27 06</p>
+                                            <p style="margin:0px;padding:0px;">RC:CI-ABJ-2017-B-12435</p>
+                                            <p style="margin:0px;padding:0px;">CC N°:1732064T</p>
+
+                                        </div>
+                                      <div class="col-6" style="border: 2px solid red; border-radius: 10px;text-align:center;font-size:13px;font-weight:bold;padding:6px;">
+                                             <div class="row"  style="margin:0px;padding:0px;">
+                                                  <div class="col-6" style="text-align:right;">Fournisseur :</div><div class="col-6"><span t-field="o.partner_id.name"/></div>
+                                              </div>
+                                              <div class="row"  style="margin:0px;padding:0px;">
+                                                  <div class="col-6" style="text-align:right;">Adresse géographique :</div><div class="col-6"><span t-field="o.partner_id.street"/></div>
+                                              </div>
+                                              <div class="row"  style="margin:0px;padding:0px;">
+                                                  <div class="col-6" style="text-align:right;">TEL :</div><div class="col-6"><span t-field="o.partner_id.phone"/></div>
+                                              </div>
+                                             <div class="row"  style="margin:0px;padding:0px;">
+                                                  <div class="col-6" style="text-align:right;">EMAIL :</div><div class="col-6"><span t-field="o.partner_id.email"/></div>
+                                              </div>
+                                            <div class="row"  style="margin:0px;padding:0px;">
+                                                  <div class="col-6" style="text-align:right;">RCCM :</div><div class="col-6"><span t-field="o.partner_id.rccm"/></div>
+                                              </div>
+                                             <div class="row"  style="margin:0px;padding:0px;">
+                                                  <div class="col-6" style="text-align:right;">CC :</div><div class="col-6"><span t-field="o.partner_id.cc"/></div>
+                                              </div>
+
+                                       </div>
+                                 </div>
+                                 <br/><br/>
+                                  <div class="row" style="background:#44CADB;height:70px;font-weight:bold;font-size:12px;padding:5px;">
+                                        <div class="col-6">
+                                             <div class="row"  style="margin-bottom:6px;padding:0px;">
+                                                 <div class="col-4" style="text-align:right;color:white;">Date d'edition :</div><div class="col-8"> <span t-esc="o.date_order" style="margin-left:4px;"/></div>
+                                             </div>
+                                            <div class="row"  style="margin:0px;padding:0px;">
+                                                <div class="col-4" style="text-align:right;color:white;">Délais de livraison :</div><div class="col-8">  <span t-esc="o.commitment_date" style="margin-left:4px;"/></div>
+                                            </div>
+
+                                        </div>
+                                       <div class="col-6">
+                                                  <div class="row"  style="margin-bottom:6px;padding:0px;">
+                                                      <div class="col-4" style="text-align:right;color:white;">Lieu de livraison :</div><div class="col-8"><span t-esc="o.lieu_liv" style="margin-left:4px;"/></div>
+                                                  </div>
+
+                                                   <div class="row"  style="margin-bottom:6px;padding:0px;">
+                                                      <div class="col-4" style="text-align:right;color:white;">Libelle :</div><div class="col-8"><span t-esc="o.libelle" style="margin-left:4px;"/></div>
+                                                  </div>
+
+                                                   <div class="row"  style="margin:0px;padding:0px;">
+                                                      <div class="col-4" style="text-align:right;color:white;">Code projet :</div><div class="col-8"><span t-esc="o.cod_projet" style="margin-left:4px;"/></div>
+                                                  </div>
+
+                                        </div>
+                                 </div>
+                                 <br/><br/>
+                                 <div>
+                                   Editeur : <span t-field="o.user_id.name"/>
+                                 </div>
+                                 <br/><br/>
+                                  <table>
+                                      <tr style="background:gray;font-size:14px;color:white;">
+                                          <th style="border-left:1px solid black;border-top:1px solid lack;border-bottom:1px solid black;text-align:left;width:200px;">Référence</th>
+                                          <th style="border-top:1px solid lack;border-bottom:1px solid black;text-align:center;width:200px;">Désignation</th>
+                                          <th style="border-top:1px solid lack;border-bottom:1px solid black;text-align:center;width:80px;">Qté</th>
+                                          <th style="border-top:1px solid lack;border-bottom:1px solid black;text-align:center;width:80px;">Unité</th>
+                                          <th style="border-top:1px solid lack;border-bottom:1px solid black;text-align:center;width:80px;">TVA</th>
+                                          <th style="border-top:1px solid lack;border-bottom:1px solid black;text-align:center;width:80px;">Prix HT</th>
+                                          <th style="border-right:1px solid black;border-top:1px solid lack;border-bottom:1px solid black;text-align:center;width:100px;">Montant TTC</th>
+                                      </tr>
+                                       <t t-foreach="o.order_line" t-as="line">
+
+                                                      <tr style="font-size:14px;">
+                                                          <td style="border-right: 1px solid black;border-left: 1px solid black; width: 200px; text-align: center;" colspan="2">
+                                                              <span t-esc="line.name"/>
+                                                          </td>
+                                                          <td style="border-left: 1px solid black;border-right: 1px solid black; width: 80px; text-align: center;">
+                                                              <span t-esc="line.product_uom_qty"/>
+                                                          </td>
+                                                          <td style="border-left: 1px solid black;border-right: 1px solid black; width: 80px; text-align: center;">
+                                                              <span t-esc="line.product_uom.name"/>
+                                                          </td>
+                                                          <td style="border-left: 1px solid black;border-right: 1px solid black; width: 80px; text-align: center;">
+                                                              <span t-esc="line.tax_id[0].name if line.tax_id else '0%'"/>
+                                                          </td>
+                                                          <td style="border-left: 1px solid black;border-right: 1px solid black; width: 80px; text-align: center;">
+                                                              <span t-esc="line.price_unit"/>
+                                                          </td>
+                                                          <td style="border-left: 1px solid black; width: 100px; text-align: center;">
+                                                              <span t-esc="line.price_total"/>
+                                                          </td>
+                                                      </tr>
+
+
+                                       </t>
+                                      <tr>
+                                                          <td style="border:0; width: 200px; text-align: center;font-size:13px;" colspan="2" rowspan="6">
+                                                             <div style="font-size:9px;border: 2px solid #44CADB;border-radius: 10px;padding:4px;">
+                                                                 <p style="margin:0px;padding:0;"> Conditions de règlement:</p>
+                                                                 <p style="margin:0px;padding:0;">MODE DE PAIEMENT: ESPECE / CHEQUE TOTAL HT</p>
+                                                                 <p style="margin:0px;padding:0;"> MODALITE DE PAIEMENT: 100% A LA COMMANDE</p>
+                                                                 <p style="margin:0px;padding:0;"> PAYER A L'ORDRE DE: ✓ chèque barré : --</p>
+                                                                 <p style="margin:0px;padding:0;">  JOINDRE IMPERATIVEMENT LE BON DE COMMANDE, LE BL/PVR A VOTRE FACTURE</p>
+
+                                                             </div>
+                                                          </td>
+                                                          <td style="width: 80px; text-align:left;background:#44CADB;color:white;font-size:12px;font-weight:bold;" colspan="4">
+                                                           SOUS-TOTAL
+                                                          </td>
+                                                          <td style="width: 100px; text-align: center;background:#44CADB;color:white;font-size:12px;font-weight:bold;">
+                                                                <span t-esc="o.amount_untaxed"/>
+                                                          </td>
+
+                                      </tr>
+                                      <tr>
+                                           <td style="height:10px;"></td>
+                                      </tr>
+                                        <tr style="font-size:14px;">
+                                                          <td style="width: 80px; text-align:left;background:black; color:white;font-size:12px;font-weight:bold;" colspan="4">
+                                                           TOTAL HT
+                                                          </td>
+                                                          <td style="width: 100px; text-align: center;background:black;color:white;font-size:12px;font-weight:bold;">
+                                                               <span t-esc="o.amount_untaxed"/>
+                                                          </td>
+
+                                      </tr>
+                                      <tr  style="font-size:14px;">
+                                                          <td style="width: 80px; text-align:left;background:white;color:black;font-size:12px;font-weight:bold;" colspan="4">
+                                                           TVA
+                                                          </td>
+                                                          <td style="width: 100px; text-align: center;background:white;color:black;font-size:12px;font-weight:bold;font-weight:bold;">
+                                                              <span t-esc="o.amount_tax" />
+                                                          </td>
+                                      </tr>
+                                       <tr  style="font-size:14px;">
+                                                          <td style="width: 80px; text-align:left;background:#44CADB;color:white;font-size:12px;font-weight:bold;" colspan="4">
+                                                           TOTAL TTC
+                                                          </td>
+                                                          <td style=" width: 100px; text-align: center;background:#44CADB;color:white;font-size:12px;font-weight:bold;">
+                                                                <span t-esc="o.amount_total"/>
+                                                          </td>
+                                      </tr>
+
+                                  </table>
+                                 <br/><br/><br/>
+                                   <div class="row" style="font-size:13px; font-weight:bold;">
+                                        <div class="col-6">
+                                            <p  style="margin:0px;">Signature et cachet</p>
+                                            <p style="margin:0px;">Directrice Achats et Moyens Généraux</p>
+
+
+                                        </div>
+                                       <div class="col-6">
+                                             <p  style="margin:0px;">Signature et cachet</p>
+                                           <p style="margin:0px;">Directeur Affaires Financières (DAF)</p>
+
+
+                                        </div>
+                                 </div>
+
+                           </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

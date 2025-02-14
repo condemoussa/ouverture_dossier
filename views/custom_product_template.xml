@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.localisation</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+              <xpath expr="//field[@name='detailed_type']" position="after">
+                    <field name="localisation"/>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="product_template_search_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.search.inherit.localisation</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='categ_id']" position="after">
+                  <filter string="Produit" name="name" domain="[]" context="{'group_by': 'name'}"/>
+                  <filter string="Prix de vente" name="list_price" domain="[]" context="{'group_by': 'list_price'}"/>
+                  <filter string="Localisation" name="localisation" domain="[]" context="{'group_by': 'localisation'}"/>
+            </xpath>
+
+
+        </field>
+    </record>
+</odoo>

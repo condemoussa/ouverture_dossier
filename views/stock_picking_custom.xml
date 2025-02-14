@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit.offre.physique</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                      <button
+                             name="action_soumis" type="object" string="Soumettre"
+                             attrs="{'invisible': [('state_p', 'not in', ['draft', 'rejected'])]}"
+                             groups="ouverture_dossier.service_gestionnaire_id"
+                     />
+                    <button
+                            name="action_transfere" type="object" string="Transferer"
+                            class="oe_highlight" attrs="{'invisible': [('state_p', '!=', 'submitted')]}"
+                            groups="ouverture_dossier.direction_technique_id"
+                    />
+                    <button
+                            name="action_rejeter" type="object" string="Rejeter"
+                             attrs="{'invisible': [('state_p', 'in', ['submitted','draft','rejected'])]}"
+                             groups="ouverture_dossier.direction_technique_id,ouverture_dossier.service_gestionnaire_id"
+                    />
+                    <button name="sortir_physique" type="object"
+                        string="Sortir Physique"
+                        icon="fa-sign-out"
+                        attrs="{'invisible': [('state_p', '!=', 'approved')]}" groups="ouverture_dossier.service_gestionnaire_id"
+
+                    />
+                     <button name="sortir_physique" type="object"
+                        string=""
+                    />
+                     <button name="sortir_physique" type="object"
+                        string=""
+                    />
+                    <field name="state_p" widget="statusbar" class="o_field_statusbar"/>
+                 </xpath>
+
+
+                 <xpath expr="//field[@name='location_id']" position="after">
+                    <field name="demandeur"  string="Demandeur"/>
+                </xpath>
+            </field>
+        </record>
+         <record id="view_picking_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.tree.inherit.offre.physique</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="demandeur"  string="Demandeur"/>
+                </xpath>
+            </field>
+        </record>
+   </data>
+</odoo>

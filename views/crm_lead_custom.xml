@@ -1,0 +1,123 @@
+<odoo>
+    <data>
+
+        <!-- Héritage de la vue formulaire de crm.lead -->
+          <record id="view_crm_lead_form_inherit_state" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit.state</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <!-- Ajouter le champ state dans le header -->
+                 <xpath expr="//sheet" position="before">
+                     <button name="valide" type="object" string="Valider"  states="submit" groups="ouverture_dossier.direction_commrcial_id,ouverture_dossier.direction_general_id" />
+                     <button name="annule" type="object" string="Annuler" states="submit" groups="ouverture_dossier.direction_commrcial_id,ouverture_dossier.direction_general_id" />
+                     <button name="action_submit" string="Soumettre" type="object" states="draft" groups="ouverture_dossier.service_commercial_id" />
+                       <button name="remettre_draft" string="Soumettre à nouveau" type="object" states="cancel" groups="ouverture_dossier.service_commercial_id" />
+                     <button name="%(action_affectation_oppportunite)d"
+                            string="GO"
+                            type="action"
+                            class="btn-primary"
+                             states="valider" groups="ouverture_dossier.direction_commrcial_id,ouverture_dossier.direction_general_id"
+                     />
+                      <button name="%(action_affectation_oppportunite)d"
+                            string="Réaffecter"
+                            type="action"
+                            class="btn-primary"
+                             states="affecte"
+                              groups="ouverture_dossier.direction_commrcial_id,ouverture_dossier.direction_general_id"
+                     />
+
+
+                     <button name="nogo" string="Non go" type="object" states="valider" groups="ouverture_dossier.direction_commrcial_id,ouverture_dossier.direction_general_id" />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"   />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"   />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"   />
+                     <button name="test" type="object"  />
+                       <button name="test" type="object"  />
+                     <button name="test" type="object"   />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"   />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"   />
+                     <button name="test" type="object"  />
+                       <button name="test" type="object"  />
+                     <button name="test" type="object"   />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"   />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"  />
+                     <button name="test" type="object"   />
+                     <button name="test" type="object"  />
+
+                    <field name="state" widget="statusbar" options="{'clickable': True}" />
+                </xpath>
+                  <xpath expr="//field[@name='tag_ids']" position="after">
+                      <field name="affecte_ids" widget="many2many_tags"/>
+                  </xpath>
+                 <xpath expr="//field[@name='user_id']" position="before">
+                      <field name="sect_activity"/>
+                  </xpath>
+
+            </field>
+        </record>
+          <record id="view_crm_lead_tree_inherit_state" model="ir.ui.view">
+            <field name="name">crm.lead.tree.inherit.state</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <!-- Ajouter le champ state dans le header -->
+                 <xpath expr="//field[@name='user_id']" position="after">
+                       <field name="affecte_ids" widget="many2many_tags" string="Affectés"/>
+                </xpath>
+
+            </field>
+        </record>
+
+       <record id="view_crm_lead_search_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.search.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml">
+              <group position="inside">
+                        <filter string="Secteur d'activité" name="sect_activity" context="{'group_by': 'sect_activity'}"/>
+              </group>
+
+        </field>
+    </record>
+
+         <record id="crm_lead_form_view_inherit_pv" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit.pv</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Insérer un nouvel onglet après les autres -->
+            <xpath expr="//notebook" position="inside">
+                <page string="PV des différentes réunions">
+                    <group>
+                        <group>
+                             <field name="pv_reunion1"/>
+                             <field name="pv_reunion2"/>
+                              <field name="pv_reunion3"/>
+                        </group>
+                         <group>
+                              <field name="pv_reunion4"/>
+                              <field name="pv_reunion5"/>
+                              <field name="pv_reunion6"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    </data>
+</odoo>

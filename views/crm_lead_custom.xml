@@ -28,7 +28,8 @@
                      />
 
 
-                     <button name="nogo" string="Non go" type="object" states="valider" groups="ouverture_dossier.direction_commrcial_id,ouverture_dossier.direction_general_id" />
+                     <button name="nogo" string="Non go" type="object" states="valider"
+                             groups="ouverture_dossier.direction_commrcial_id,ouverture_dossier.direction_general_id" />
                      <button name="test" type="object"  />
                      <button name="test" type="object"   />
                      <button name="test" type="object"  />

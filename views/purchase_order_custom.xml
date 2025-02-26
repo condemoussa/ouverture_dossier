@@ -43,7 +43,7 @@
                     groups="ouverture_dossier.direction_general_id,ouverture_dossier.controleur_gestion_id"
              />
 
-            <button name="validate_dg" string="Validation  DG" type="object"
+            <button name="validate_dg" string="Valider  (DG/DO)" type="object"
                       attrs="{'invisible': [('etap_state', '!=', 'envoye_dg')]}"
                        groups="ouverture_dossier.direction_general_id"
              />
@@ -54,21 +54,21 @@
              />
 
             <button name="send_document_controleur" string="Soumettre au controleur" type="object"
-                       attrs="{'invisible': [('etap_state', '!=', 'facture_profomat')]}"
+                       attrs="{'invisible': [('etap_state', '!=', 'draft')]}"
                      groups="ouverture_dossier.service_commercial_id"
             />
 
 
-              <button name="facture_proformat" string="Facture proformat" type="object"
-                         attrs="{'invisible': [('etap_state', '!=', 'envoye_fournisseu')]}"
-                        groups="ouverture_dossier.service_commercial_id"
-              />
+<!--              <button name="facture_proformat" string="Facture proformat" type="object"-->
+<!--                         attrs="{'invisible': [('etap_state', '!=', 'envoye_fournisseu')]}"-->
+<!--                        groups="ouverture_dossier.service_commercial_id"-->
+<!--              />-->
 
 
-              <button name="action_rfq_send" string="Envoyer au fournisseur" type="object"
-                        attrs="{'invisible': [('etap_state', '!=', 'draft')]}"
-                        groups="ouverture_dossier.service_commercial_id"
-              />
+<!--              <button name="action_rfq_send" string="Envoyer au fournisseur" type="object"-->
+<!--                        attrs="{'invisible': [('etap_state', '!=', 'draft')]}"-->
+<!--                        groups="ouverture_dossier.service_commercial_id"-->
+<!--              />-->
 
             <field name="etap_state" widget="statusbar" class="o_field_statusbar"/>
         </xpath>

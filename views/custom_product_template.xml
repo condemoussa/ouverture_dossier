@@ -6,7 +6,8 @@
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
               <xpath expr="//field[@name='detailed_type']" position="after">
-                    <field name="localisation"/>
+                      <field name="localisation"/>
+                      <field name="sect_activity"/>
             </xpath>
         </field>
     </record>
@@ -20,6 +21,7 @@
                   <filter string="Produit" name="name" domain="[]" context="{'group_by': 'name'}"/>
                   <filter string="Prix de vente" name="list_price" domain="[]" context="{'group_by': 'list_price'}"/>
                   <filter string="Localisation" name="localisation" domain="[]" context="{'group_by': 'localisation'}"/>
+                 <filter string="Secteur d'activité" name="sect_activity" domain="[]" context="{'group_by': 'sect_activity'}"/>
             </xpath>
 
 

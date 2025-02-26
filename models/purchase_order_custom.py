@@ -179,64 +179,64 @@ class PurchaseOrder(models.Model):
             }
             self.env['mail.mail'].create(mail_values).send()  # Création et envoi de l'email
 
-    def send_document_by_email(self):
-        for record in self:
-            # Vérifier si un document est attaché
-            if not record.offre_physique:
-                raise UserError("Aucun document n'est attaché à cette commande.")
-
-            # Vérifier si un client est lié et possède une adresse e-mail
-            if not record.partner_id or not record.partner_id.email:
-                raise UserError("Le client associé n'a pas d'adresse e-mail.")
-
-            # Récupérer l'adresse e-mail du client
-            email_to = record.partner_id.email
-
-            # Créer l'attachement
-            attachment = self.env['ir.attachment'].create({
-                'name': 'Demande.pdf',
-                'type': 'binary',
-                'datas': record.offre_physique,
-                'res_model': self._name,
-                'res_id': record.id,
-                'mimetype': 'application/pdf',  # Changez si nécessaire
-            })
-
-            # Préparer l'e-mail
-            mail_values = {
-                'subject': f"Document lié à la commande {record.name}",
-                'body_html': f"""
-                       <p>Bonjour {record.partner_id.name},</p>
-                       <p>Veuillez trouver ci-joint le document lié à la demande <strong>{record.name}</strong>.</p>
-                       <p>Cordialement,</p>
-                   """,
-                'email_from': self.env.user.email ,
-                'email_to': email_to,  # E-mail du client
-                'attachment_ids': [(4, attachment.id)],  # Associer l'attachement
-                'auto_delete': False,  # Ne pas supprimer l'e-mail automatiquement
-            }
-
-            # Créer et envoyer l'e-mail
-            mail = self.env['mail.mail'].create(mail_values)
-            mail.send()
-
-
-    def action_rfq_send(self):
-        # Appel à la méthode originale pour conserver son comportement par défaut
-        res = super(PurchaseOrder, self).action_rfq_send()
-        self.update({"etap_state": "envoye_fournisseu","state":"sent"})
-
-        # Appel de la méthode `send_document_by_email` pour envoyer le document
-        for record in self:
-            if record.offre_physique:
-                # Vérifier si le client a un e-mail
-                if not record.partner_id or not record.partner_id.email:
-                    raise UserError(f"Le client de la commande {record.name} n'a pas d'adresse e-mail.")
-
-                # Appeler la méthode pour envoyer l'e-mail avec le document
-                record.send_document_by_email()
-
-        return res
+    # def send_document_by_email(self):
+    #     for record in self:
+    #         # Vérifier si un document est attaché
+    #         if not record.offre_physique:
+    #             raise UserError("Aucun document n'est attaché à cette commande.")
+    #
+    #         # Vérifier si un client est lié et possède une adresse e-mail
+    #         if not record.partner_id or not record.partner_id.email:
+    #             raise UserError("Le client associé n'a pas d'adresse e-mail.")
+    #
+    #         # Récupérer l'adresse e-mail du client
+    #         email_to = record.partner_id.email
+    #
+    #         # Créer l'attachement
+    #         attachment = self.env['ir.attachment'].create({
+    #             'name': 'Demande.pdf',
+    #             'type': 'binary',
+    #             'datas': record.offre_physique,
+    #             'res_model': self._name,
+    #             'res_id': record.id,
+    #             'mimetype': 'application/pdf',  # Changez si nécessaire
+    #         })
+    #
+    #         # Préparer l'e-mail
+    #         mail_values = {
+    #             'subject': f"Document lié à la commande {record.name}",
+    #             'body_html': f"""
+    #                    <p>Bonjour {record.partner_id.name},</p>
+    #                    <p>Veuillez trouver ci-joint le document lié à la demande <strong>{record.name}</strong>.</p>
+    #                    <p>Cordialement,</p>
+    #                """,
+    #             'email_from': self.env.user.email ,
+    #             'email_to': email_to,  # E-mail du client
+    #             'attachment_ids': [(4, attachment.id)],  # Associer l'attachement
+    #             'auto_delete': False,  # Ne pas supprimer l'e-mail automatiquement
+    #         }
+    #
+    #         # Créer et envoyer l'e-mail
+    #         mail = self.env['mail.mail'].create(mail_values)
+    #         mail.send()
+    #
+    #
+    # def action_rfq_send(self):
+    #     # Appel à la méthode originale pour conserver son comportement par défaut
+    #     res = super(PurchaseOrder, self).action_rfq_send()
+    #     self.update({"etap_state": "envoye_fournisseu","state":"sent"})
+    #
+    #     # Appel de la méthode `send_document_by_email` pour envoyer le document
+    #     for record in self:
+    #         if record.offre_physique:
+    #             # Vérifier si le client a un e-mail
+    #             if not record.partner_id or not record.partner_id.email:
+    #                 raise UserError(f"Le client de la commande {record.name} n'a pas d'adresse e-mail.")
+    #
+    #             # Appeler la méthode pour envoyer l'e-mail avec le document
+    #             record.send_document_by_email()
+    #
+    #     return res
 
 
     etap_commande = fields.Selection(
@@ -250,11 +250,11 @@ class PurchaseOrder(models.Model):
     etap_state = fields.Selection(
         [
             ("draft","Brouillon"),
-            ("envoye_fournisseu", "Envoyer au fournisseur"),
-            ("facture_profomat", "Facture proforma"),
+            # ("envoye_fournisseu", "Envoyer au fournisseur"),
+            # ("facture_profomat", "Facture proforma"),
             ("envoye_controleur", "Envoyer au Controleur"),
             ("envoye_dg", "Envoyer au DG"),
-            ("validate", "Validation DG"),
+            ("validate", "Validation DG/DO"),
             ("service_achat", "SERVICE ACHAT"),
             ("lance_commande", "LANCÉ COMMANDE"),
             ("ser_tresorie", "TRESORERIE"),
